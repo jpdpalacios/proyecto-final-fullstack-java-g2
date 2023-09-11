@@ -112,21 +112,46 @@
                 </tr>
             </table>
 
+
+            <h2>Pagos</h2>
+            <table id="pagos">
+                <tr>
+                    <th>Descripción</th>
+                    <th>Monto</th>
+                    <th><button type="button" class="add-row-button" onclick="agregarFila('pagos')">Agregar Pago</button></th>
+                </tr>
+                <tr>
+                    <td><input type="text" name="descripcion[]" required></td>
+                    <td><input type="text" name="monto[]" class="precio" required></td>
+                    <td><button type="button" class="remove-row-button" disabled>Quitar</button></td>
+                </tr>
+                <tr class="total-row">
+                    <td>Saldo Total:</td>
+                    <td id="total-pagos">0.00</td>
+                    <td></td>
+                </tr>
+                <tr class="total-amount-row">
+                    <td>Total a Pagar:</td>
+                    <td id="total-a-pagar">0.00</td>
+                    <td></td>
+                </tr>
+            </table>
+
             <button type="button" id="cancelar">Cancelar</button>
             <button type="submit" id="guardar">Guardar</button>
         </form>
     </main>
     <!-- Temporal -->
     <script>
-       function agregarFila() {
-            var table = document.getElementById("productos");
-            var row = table.insertRow(table.rows.length - 1);
+       function agregarFila(tablaId) {
+            var table = document.getElementById(tablaId);
+            var row = table.insertRow(table.rows.length - 2); // Insertar arriba de las filas fijas
             var cell1 = row.insertCell(0);
             var cell2 = row.insertCell(1);
             var cell3 = row.insertCell(2);
 
-            cell1.innerHTML = '<input type="text" name="producto[]" required>';
-            cell2.innerHTML = '<input type="text" name="precio[]" class="precio" required>';
+            cell1.innerHTML = '<input type="text" name="descripcion[]" required>';
+            cell2.innerHTML = '<input type="text" name="monto[]" class="precio" required>';
             cell3.innerHTML = '<button type="button" class="remove-row-button" onclick="eliminarFila(this)">Quitar</button>';
 
             actualizarTotal();
@@ -141,16 +166,28 @@
 
         function actualizarTotal() {
             var precios = document.getElementsByClassName("precio");
-            var total = 0;
+            var totalPrecio = 0;
+            var totalPagos = 0;
 
             for (var i = 0; i < precios.length; i++) {
                 var precio = parseFloat(precios[i].value.replace(/\$/g, '').replace(/,/g, '')) || 0;
-                total += precio;
+                if (precios[i].closest("table").id === "productos") {
+                    totalPrecio += precio;
+                } else if (precios[i].closest("table").id === "pagos") {
+                    totalPagos += precio;
+                }
                 precios[i].value = '$' + precio.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             }
 
-            document.getElementById("total-precio").textContent = '$' + total.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            document.getElementById("total-precio").textContent = '$' + totalPrecio.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            document.getElementById("total-pagos").textContent = '$' + totalPagos.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            
+            var totalAPagar = totalPrecio - totalPagos;
+            document.getElementById("total-a-pagar").textContent = '$' + totalAPagar.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
+
+        // Inicializar el total al cargar la página
+        actualizarTotal();
     </script>
 
 </body>
