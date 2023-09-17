@@ -1,13 +1,13 @@
-package edu.grupo2.gestor;
+package edu.gestor.mgp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class GestorApplication {
+public class MgpApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(GestorApplication.class, args);
+		SpringApplication.run(MgpApplication.class, args);
 	}
 
 }

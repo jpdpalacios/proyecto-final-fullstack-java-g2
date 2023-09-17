@@ -1,10 +1,10 @@
-package edu.grupo2.gestor;
+package edu.gestor.mgp;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class GestorApplicationTests {
+class MgpApplicationTests {
 
 	@Test
 	void contextLoads() {
