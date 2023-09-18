@@ -1,30 +1,162 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>Lista de Clientes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Tablero Clientes</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="icon" type="image/x-icon" href="/images/IconoNavegador.ico">
+
+
+    <style>
+        .logo {
+            max-width: 150px;
+            display: block;
+            margin: 0 auto;
+            margin-top: -3%;
+            margin-bottom: -3%;
+        }
+
+        body {
+            margin-bottom: 0;
+        }
+
+        footer {
+            margin-top: 0;
+
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Lista de Clientes</h1>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Email</th>
-                <th>Dni</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="cliente : ${clientes}">
-                <td th:text="${cliente.id}"></td>
-                <td th:text="${cliente.nombre}"></td>
-                <td th:text="${cliente.apellido}"></td>
-                <td th:text="${cliente.email}"></td>
-                <td th:text="${cliente.dni}"></td>
-            </tr>
-        </tbody>
-    </table>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <img src="/images/LogoOficial.png" alt="LogoMGP" class="logo">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/inicio">Inicio</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/trabajos/listar">Lista de trabajos</a>
+                </li>
+               
+                <li class="nav-item">
+                    <a class="nav-link" href="/trabajos/crear">Registrar de trabajo</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/clientes/crear">Registrar cliente</a>
+                </li>
+
+                <li class="nav-item active">
+                    <a class="nav-link" href="/clientes/listar">Lista de clientes</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <header>
+        <nav>
+            <div class="usuario">
+                <!-- Nombre del usuario aquí -->
+            </div>
+        </nav>
+
+        <style>
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 10px;
+            }
+
+            table,
+            th,
+            td {
+                border: 1px solid #ccc;
+            }
+
+            th,
+            td {
+                padding: 10px;
+                text-align: left;
+            }
+
+            .add-row-button {
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                cursor: pointer;
+            }
+
+            .remove-row-button {
+                background-color: #f44336;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                cursor: pointer;
+            }
+        </style>
+
+    </header>
+
+    <!-- Temporal -->
+
+    <div class="container my-5 mb-5">
+
+
+        <div class="container">
+            <div class="row justify-content-center">
+
+                <h1>Clientes Registrados</h1>
+
+            </div>
+        </div>
+
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Email</th>
+                    <th>Dni</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="cliente : ${clientes}">
+                    <td th:text="${cliente.id}"></td>
+                    <td th:text="${cliente.nombre}"></td>
+                    <td th:text="${cliente.apellido}"></td>
+                    <td th:text="${cliente.email}"></td>
+                    <td th:text="${cliente.dni}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <br>
+
+
+
+
+    <footer class="py-1 bg-dark text-white text-center fixed-bottom mt-4">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>&copy; 2023 MGP Soluciones Informáticas. Todos los derechos reservados.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
 </body>
+
 </html>
