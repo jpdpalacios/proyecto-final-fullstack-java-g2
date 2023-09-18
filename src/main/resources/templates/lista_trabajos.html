@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Trabajos a Realizar</title>
+</head>
+<body>
+    <h1>Lista de Trabajos a Realizar</h1>
+    
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Estado</th>
+            <th>Fecha de Recibo</th>
+            <th>Fecha de Entrega</th>
+            <th>Cliente ID</th>
+            <th>Tipo de Equipo</th>
+            <th>Modelo de Equipo</th>
+            <th>Prioridad</th>
+            <th>Asignado a</th>
+            <th>Comentarios</th>
+            <th>Ganancia</th>
+        </tr>
+        <!-- Iterar sobre la lista de trabajos y mostrar los datos -->
+        <tr th:each="trabajo : ${trabajos}">
+            <td th:text="${trabajo.id}"></td>
+            <td th:text="${trabajo.nombre}"></td>
+            <td th:text="${trabajo.descripcion}"></td>
+            <td th:text="${trabajo.estado}"></td>
+            <td th:text="${trabajo.fechaRecibo}"></td>
+            <td th:text="${trabajo.fechaEntrega}"></td>
+            <td th:text="${trabajo.clienteId}"></td>
+            <td th:text="${trabajo.tipoEquipo}"></td>
+            <td th:text="${trabajo.modeloEquipo}"></td>
+            <td th:text="${trabajo.prioridad}"></td>
+            <td th:text="${trabajo.asignadoA}"></td>
+            <td th:text="${trabajo.comentarios}"></td>
+            <td th:text="${trabajo.ganancia}"></td>
+        </tr>
+    </table>
+</body>
+</html>

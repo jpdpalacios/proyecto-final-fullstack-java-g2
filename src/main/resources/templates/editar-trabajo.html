@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Trabajo</title>
+</head>
+<body>
+    <h1>Editar Trabajo</h1>
+    <form th:action="@{'/trabajos/editar/' + ${trabajo.id}}" th:object="${trabajo}" method="post">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" th:field="*{nombre}" required><br>
+
+        <label for="descripcion">Descripción:</label>
+        <textarea id="descripcion" th:field="*{descripcion}"></textarea><br>
+
+        <label for="estado">Estado:</label>
+        <select id="estado" th:field="*{estado}">
+            <option value="TERMINADO">Terminado</option>
+            <option value="SIN_INICIAR">Sin Iniciar</option>
+            <option value="INICIADO">Iniciado</option>
+            <option value="ENTREGADO">Entregado</option>
+        </select><br>
+
+        <label for="fechaRecibo">Fecha de Recibo:</label>
+        <input type="date" id="fechaRecibo" th:field="*{fechaRecibo}" required><br>
+
+        <label for="fechaEntrega">Fecha de Entrega:</label>
+        <input type="date" id="fechaEntrega" th:field="*{fechaEntrega}"><br>
+
+        <label for="cliente">Cliente:</label>
+        <select id="cliente" th:field="*{cliente.id}">
+            <option th:each="cliente : ${clientes}" th:value="${cliente.id}" th:text="${cliente.nombre}"></option>
+        </select><br>
+
+        <label for="tipoEquipo">Tipo de Equipo:</label>
+        <select id="tipoEquipo" th:field="*{tipoEquipo}">
+            <option value="NOTEBOOK">Notebook</option>
+            <option value="PC_DE_ESCRITORIO">PC de escritorio</option>
+            <option value="CONSOLA">Consola</option>
+            <option value="JOYSTICK">Joystick</option>
+            <option value="ALTAVOZ_BLUETOOTH">Altavoz Bluetooth</option>
+            <option value="ALTAVOZ">Altavoz</option>
+        </select><br>
+
+        <label for="modeloEquipo">Modelo de Equipo:</label>
+        <input type="text" id="modeloEquipo" th:field="*{modeloEquipo}"><br>
+
+        <label for="prioridad">Prioridad:</label>
+        <select id="prioridad" th:field="*{prioridad}">
+            <option value="BAJA">Baja</option>
+            <option value="MEDIA">Media</option>
+            <option value="ALTA">Alta</option>
+        </select><br>
+
+        <label for="asignadoA">Asignado a:</label>
+        <select id="asignadoA" th:field="*{asignadoA.id}">
+            <option value="" disabled selected>Seleccione un usuario</option>
+            <option th:each="usuarioAdmin : ${usuariosAdmin}" th:value="${usuarioAdmin.id}" th:text="${usuarioAdmin.nombre}"></option>
+        </select>        
+
+        <label for="comentarios">Comentarios:</label>
+        <textarea id="comentarios" th:field="*{comentarios}"></textarea><br>
+
+        <label for="ganancia">Ganancia:</label>
+        <input type="text" id="ganancia" th:field="*{ganancia}"><br>
+
+        <!-- Otros campos y botón de envío -->
+        <button type="submit">Guardar Cambios</button>
+    </form>
+</body>
+</html>
