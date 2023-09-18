@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -24,10 +25,10 @@ public class TrabajoARealizarController {
     private TrabajoARealizarRepository trabajoRepository;
 
     @Autowired
-    private ClienteRepository clienteRepository; // Repositorio de clientes
+    private ClienteRepository clienteRepository;
 
     @Autowired
-    private AdminRepository usuarioAdminRepository; // Repositorio de usuarios admin
+    private AdminRepository usuarioAdminRepository;
 
     @GetMapping("/listar")
     public String listarTrabajos(Model model) {
@@ -49,9 +50,47 @@ public class TrabajoARealizarController {
 
         return "crear-trabajo";
     }
+
     @PostMapping("/crear")
     public String crearTrabajo(@ModelAttribute("nuevoTrabajo") TrabajoARealizar nuevoTrabajo) {
         trabajoRepository.save(nuevoTrabajo);
+
+        return "redirect:/trabajos/listar";
+    }
+
+    @GetMapping("/editar/{id}")
+    public String mostrarFormularioEdicion(@PathVariable Long id, Model model) {
+        TrabajoARealizar trabajo = trabajoRepository.findById(id).orElse(null);
+
+        if (trabajo != null) {
+            model.addAttribute("trabajo", trabajo);
+
+            List<Cliente> clientes = clienteRepository.findAll();
+            model.addAttribute("clientes", clientes);
+
+            List<Admin> usuariosAdmin = usuarioAdminRepository.findAll();
+            model.addAttribute("usuariosAdmin", usuariosAdmin);
+
+            return "editar-trabajo";
+        } else {
+            return "redirect:/trabajos/listar";
+        }
+    }
+
+    @PostMapping("/editar/{id}")
+    public String actualizarTrabajo(@PathVariable Long id, @ModelAttribute("trabajo") TrabajoARealizar trabajo) {
+        trabajo.setId(id);
+        trabajoRepository.save(trabajo);
+
+        return "redirect:/trabajos/listar";
+    }
+
+    @PostMapping("/eliminar/{id}")
+    public String eliminarTrabajo(@PathVariable Long id) {
+        TrabajoARealizar trabajo = trabajoRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Trabajo no encontrado con ID: " + id));
+
+        trabajoRepository.delete(trabajo);
 
         return "redirect:/trabajos/listar";
     }
