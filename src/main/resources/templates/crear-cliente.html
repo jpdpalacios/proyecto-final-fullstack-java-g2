@@ -1,36 +1,130 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
-    <title>Crear Cliente y Usuario</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Registro de Clientes</title>
+    <link rel="stylesheet" href="/static/css/estilos.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .logo {
+            max-width: 150px; 
+            display: block; 
+            margin: 0 auto; 
+            margin-top: -3%; 
+            margin-bottom: -3%;
+        }
+        body {
+            margin-bottom: 0;
+        }
+
+        footer {
+            margin-top: 0; 
+        }
+    </style>
+    <link rel="icon" type="image/x-icon" href="/images/IconoNavegador.ico">
 </head>
-
 <body>
-    <h1>Crear Cliente y Usuario</h1>
-    <form th:action="@{/clientes/crear}" method="post" th:object="${cliente}">
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" th:field="*{nombre}" required>
-        <br>
-        <label for="apellido">Apellido:</label>
-        <input type="text" id="apellido" name="apellido" th:field="*{apellido}" required>
-        <br>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" th:field="*{email}" required>
-        <br>
-        <label for="dni">DNI:</label>
-        <input type="text" id="dni" name="dni" th:field="*{dni}" required>
-        <br>
-        <!-- Campos para el usuario -->
-        <label for="usuarioNombre">Nombre de Usuario:</label>
-        <input type="text" id="usuarioNombre" name="usuarioNombre" required>
-        <br>
-        <label for="password">Contraseña:</label>
-        <input type="password" id="password" name="password" required>
-        <br>
-        <button type="submit">Crear Cliente y Usuario</button>
-    </form>
-    <a th:href="@{/clientes/listar}">Volver a la lista de clientes</a>
-</body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <img src="/images/LogoOficial.png" alt="LogoMGP" class="logo">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
 
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/inicio">Inicio</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/trabajos/listar">Lista de trabajos</a>
+                </li>
+               
+                <li class="nav-item">
+                    <a class="nav-link" href="/trabajos/crear">Registrar de trabajo</a>
+                </li>
+
+                <li class="nav-item active">
+                    <a class="nav-link" href="/clientes/crear">Registrar cliente</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/clientes/listar">Lista de clientes</a>
+                </li>
+               
+
+            </ul>
+        </div>
+    </nav>
+    <div class="container my-5">
+        <h1 class="text-center">Registro de Clientes</h1>
+        <p class="text-center" >Si eres nuevo, registrate completando los campos a continuación:</p>
+        <form th:action="@{/clientes/crear}" method="post" th:object="${cliente}">
+
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" th:field="*{nombre}" required class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="apellido">Apellido:</label>
+                <input type="text" id="apellido" name="apellido" th:field="*{apellido}" required class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="dni">DNI:</label>
+                <input type="text" id="dni" name="dni" th:field="*{dni}" required class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" th:field="*{email}" required class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="TelefonoCliente">Teléfono:</label>
+                <input type="tel" class="form-control" id="TelefonoCliente" name="telefono" placeholder="+54........" required>
+            </div>
+
+            <div class="form-group">
+                <label for="usuarioNombre">Nombre de Usuario:</label>
+                <input type="text" id="usuarioNombre" name="usuarioNombre" required class="form-control">
+            </div>
+
+
+
+            <div class="form-group">
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="password" required class="form-control">    
+            </div>
+
+            <div class="row justify-content-center">
+                <button type="reset" class="btn btn-secondary mr-3">Cancelar</button>
+
+                <button type="submit" class="btn btn-primary ml-3">Registrarse</button>
+            </div>
+
+        </form>
+        <br>
+        
+    </div>
+
+
+    <br>
+    <footer class="py-1 bg-dark text-white text-center fixed-bottom mt-4">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>&copy; 2023 MGP Soluciones Informáticas. Todos los derechos reservados.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="validacion.js"></script>
+</body>
 </html>

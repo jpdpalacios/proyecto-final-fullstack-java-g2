@@ -3,56 +3,167 @@
 
 <head>
     <title>Lista de Trabajos a Realizar</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="icon" type="image/x-icon" href="/images/IconoNavegador.ico">
+
+
+    <style>
+        .logo {
+            max-width: 150px;
+            display: block;
+            margin: 0 auto;
+            margin-top: -3%;
+            margin-bottom: -3%;
+        }
+
+        body {
+            margin-bottom: 0;
+        }
+
+        footer {
+            margin-top: 0;
+
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Lista de Trabajos a Realizar</h1>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Descripción</th>
-                <th>Estado</th>
-                <th>Fecha de Recibo</th>
-                <th>Fecha de Entrega</th>
-                <th>Cliente</th>
-                <th>Tipo de Equipo</th>
-                <th>Modelo de Equipo</th>
-                <th>Prioridad</th>
-                <th>Asignado a</th>
-                <th>Comentarios</th>
-                <th>Ganancia</th>
-                <th>Acciones</th> <!-- Nueva columna para enlace de edición -->
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="trabajo : ${trabajos}">
-                <td th:text="${trabajo.id}"></td>
-                <td th:text="${trabajo.nombre}"></td>
-                <td th:text="${trabajo.descripcion}"></td>
-                <td th:text="${trabajo.estado}"></td>
-                <td th:text="${#dates.format(trabajo.fechaRecibo, 'yyyy-MM-dd')}"></td>
-                <td th:text="${#dates.format(trabajo.fechaEntrega, 'yyyy-MM-dd')}"></td>
-                <td th:text="${trabajo.cliente.nombre}"></td> <!-- Supongo que el cliente tiene un atributo "nombre" -->
-                <td th:text="${trabajo.tipoEquipo}"></td>
-                <td th:text="${trabajo.modeloEquipo}"></td>
-                <td th:text="${trabajo.prioridad}"></td>
-                <td th:text="${trabajo.asignadoA.nombre}"></td>
-                <!-- Supongo que el usuario asignado tiene un atributo "nombre" -->
-                <td th:text="${trabajo.comentarios}"></td>
-                <td th:text="${trabajo.ganancia}"></td>
-                <td>
-                    <a th:href="@{'/trabajos/editar/' + ${trabajo.id}}">Editar</a> <!-- Enlace de edición -->
-                    <form th:action="@{'/trabajos/eliminar/' + ${trabajo.id}}" method="post"
-                        onsubmit="return confirm('¿Estás seguro de eliminar este trabajo?')">
-                        <input type="hidden" name="_method" value="delete">
-                        <button type="submit">Eliminar</button>
-                    </form>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <img src="/images/LogoOficial.png" alt="LogoMGP" class="logo">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/inicio">Inicio</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link active" href="/trabajos/listar">Lista de trabajos</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/trabajos/crear">Registrar de trabajo</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/clientes/crear">Registrar cliente</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/clientes/listar">Lista de clientes</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <header>
+        <nav>
+            <div class="usuario">
+                <!-- Nombre del usuario aquí -->
+            </div>
+        </nav>
+
+        <style>
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 10px;
+            }
+
+            table,
+            th,
+            td {
+                border: 1px solid #ccc;
+            }
+
+            th,
+            td {
+                padding: 5px;
+                text-align: left;
+            }
+
+            .add-row-button {
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                cursor: pointer;
+            }
+
+            .remove-row-button {
+                background-color: #f44336;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                cursor: pointer;
+            }
+
+            .table-responsive {
+                overflow-x: auto;
+            }
+        </style>
+
+
+
+        <h1>Lista de Trabajos a Realizar</h1>
+
+
+        <div class="row table-responsive">
+            <div class="col-md-6 col-lg-12">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Estado</th>
+                            <th>Fecha de Recibo</th>
+                            <th>Fecha de Entrega</th>
+                            <th>Cliente</th>
+                            <th>Tipo de Equipo</th>
+                            <th>Modelo de Equipo</th>
+                            <th>Prioridad</th>
+                            <th>Asignado a</th>
+                            <th>Comentarios</th>
+                            <th>Ganancia</th>
+                            <th>Acciones</th> <!-- Nueva columna para enlace de edición -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="trabajo : ${trabajos}">
+                            <td th:text="${trabajo.id}"></td>
+                            <td th:text="${trabajo.nombre}"></td>
+                            <td th:text="${trabajo.descripcion}"></td>
+                            <td th:text="${trabajo.estado}"></td>
+                            <td th:text="${#dates.format(trabajo.fechaRecibo, 'yyyy-MM-dd')}"></td>
+                            <td th:text="${#dates.format(trabajo.fechaEntrega, 'yyyy-MM-dd')}"></td>
+                            <td th:text="${trabajo.cliente.nombre}"></td>
+                            <!-- Supongo que el cliente tiene un atributo "nombre" -->
+                            <td th:text="${trabajo.tipoEquipo}"></td>
+                            <td th:text="${trabajo.modeloEquipo}"></td>
+                            <td th:text="${trabajo.prioridad}"></td>
+                            <td th:text="${trabajo.asignadoA.nombre}"></td>
+                            <!-- Supongo que el usuario asignado tiene un atributo "nombre" -->
+                            <td th:text="${trabajo.comentarios}"></td>
+                            <td th:text="${trabajo.ganancia}"></td>
+                            <td>
+                                <a class="btn btn-primary" th:href="@{'/trabajos/editar/' + ${trabajo.id}}">Editar</a>
+                                <!-- Enlace de edición -->
+                                <form th:action="@{'/trabajos/eliminar/' + ${trabajo.id}}" method="post"
+                                    onsubmit="return confirm('¿Estás seguro de eliminar este trabajo?')">
+                                    <input type="hidden" name="_method" value="delete">
+                                    <button class="btn btn-danger" type="submit">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
 </body>
 
 </html>

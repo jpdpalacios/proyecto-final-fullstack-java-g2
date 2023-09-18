@@ -4,9 +4,66 @@
 <head>
     <meta charset="UTF-8">
     <title>Editar Cliente</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="icon" type="image/x-icon" href="/images/IconoNavegador.ico">
+
+    <style>
+        .logo {
+            max-width: 150px;
+            display: block;
+            margin: 0 auto;
+            margin-top: -3%;
+            margin-bottom: -3%;
+        }
+
+        body {
+            margin-bottom: 0;
+        }
+
+        footer {
+            margin-top: 0;
+
+        }
+    </style>
 </head>
 
 <body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <img src="/images/LogoOficial.png" alt="LogoMGP" class="logo">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/inicio">Inicio</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link active" href="/trabajos/listar">Lista de trabajos</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/trabajos/crear">Registrar de trabajo</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/clientes/crear">Registrar cliente</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/clientes/listar">Lista de clientes</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+
     <h1>Editar Cliente</h1>
     <form th:action="@{'/clientes/editar/' + ${cliente.id}}" method="post" th:object="${cliente}">
         <label for="nombre">Nombre:</label>
@@ -18,7 +75,7 @@
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" th:field="*{email}" required>
         <br>
-        <button type="submit">Guardar Cambios</button>
+        <button class="btn btn-primary" type="submit">Guardar Cambios</button>
     </form>
     <a th:href="@{'/clientes/listar'}">Volver a la lista de clientes</a>
 </body>
