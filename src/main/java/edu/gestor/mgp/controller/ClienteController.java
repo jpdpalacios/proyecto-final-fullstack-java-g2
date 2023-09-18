@@ -6,10 +6,13 @@ import edu.gestor.mgp.model.Usuario;
 import edu.gestor.mgp.repository.ClienteRepository;
 import edu.gestor.mgp.repository.UsuarioRepository;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -54,4 +57,31 @@ public class ClienteController {
         return "redirect:/clientes/listar";
     }
 
+    @GetMapping("/editar/{id}")
+    public String mostrarFormularioEdicionCliente(@PathVariable Integer id, Model model) {
+        Optional<Cliente> optionalCliente = clienteRepository.findById(id);
+        if (optionalCliente.isPresent()) {
+            Cliente cliente = optionalCliente.get();
+            model.addAttribute("cliente", cliente);
+            return "editar-cliente";
+        } else {
+            // Manejar el caso en que no se encuentra el cliente
+            return "redirect:/clientes/listar"; // O redirige a una página de error
+        }
+    }
+
+    @PostMapping("/editar/{id}")
+    public String editarCliente(@PathVariable Integer id, @ModelAttribute Cliente cliente) {
+        Optional<Cliente> optionalCliente = clienteRepository.findById(id);
+        if (optionalCliente.isPresent()) {
+            Cliente clienteExistente = optionalCliente.get();
+            clienteExistente.setNombre(cliente.getNombre());
+            clienteExistente.setApellido(cliente.getApellido());
+            clienteExistente.setEmail(cliente.getEmail());
+            clienteRepository.save(clienteExistente);
+        }
+        return "redirect:/clientes/listar";
+    }
+
+    
 }
