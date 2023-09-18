@@ -21,6 +21,7 @@
                 <th>Asignado a</th>
                 <th>Comentarios</th>
                 <th>Ganancia</th>
+                <th>Acciones</th> <!-- Nueva columna para enlace de edición -->
             </tr>
         </thead>
         <tbody>
@@ -38,6 +39,9 @@
                 <td th:text="${trabajo.asignadoA.nombre}"></td> <!-- Supongo que el usuario asignado tiene un atributo "nombre" -->
                 <td th:text="${trabajo.comentarios}"></td>
                 <td th:text="${trabajo.ganancia}"></td>
+                <td>
+                    <a th:href="@{'/trabajos/editar/' + ${trabajo.id}}">Editar</a> <!-- Enlace de edición -->
+                </td>
             </tr>
         </tbody>
     </table>
