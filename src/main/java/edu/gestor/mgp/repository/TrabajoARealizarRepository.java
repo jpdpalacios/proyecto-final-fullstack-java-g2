@@ -1,9 +1,9 @@
 package edu.gestor.mgp.repository;
 
+import edu.gestor.mgp.model.TrabajoARealizar;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import edu.gestor.mgp.model.Admin;
 
 @Repository
-public interface AdminRepository extends JpaRepository<Admin, Integer> {
+public interface TrabajoARealizarRepository extends JpaRepository<TrabajoARealizar, Long> {
 }
