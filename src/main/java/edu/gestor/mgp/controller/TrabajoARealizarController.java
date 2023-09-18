@@ -25,10 +25,10 @@ public class TrabajoARealizarController {
     private TrabajoARealizarRepository trabajoRepository;
 
     @Autowired
-    private ClienteRepository clienteRepository; 
+    private ClienteRepository clienteRepository;
 
     @Autowired
-    private AdminRepository usuarioAdminRepository; 
+    private AdminRepository usuarioAdminRepository;
 
     @GetMapping("/listar")
     public String listarTrabajos(Model model) {
@@ -71,7 +71,7 @@ public class TrabajoARealizarController {
             List<Admin> usuariosAdmin = usuarioAdminRepository.findAll();
             model.addAttribute("usuariosAdmin", usuariosAdmin);
 
-            return "editar-trabajo"; 
+            return "editar-trabajo";
         } else {
             return "redirect:/trabajos/listar";
         }
@@ -79,10 +79,19 @@ public class TrabajoARealizarController {
 
     @PostMapping("/editar/{id}")
     public String actualizarTrabajo(@PathVariable Long id, @ModelAttribute("trabajo") TrabajoARealizar trabajo) {
-        trabajo.setId(id); 
+        trabajo.setId(id);
         trabajoRepository.save(trabajo);
 
         return "redirect:/trabajos/listar";
     }
 
+    @PostMapping("/eliminar/{id}")
+    public String eliminarTrabajo(@PathVariable Long id) {
+        TrabajoARealizar trabajo = trabajoRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Trabajo no encontrado con ID: " + id));
+
+        trabajoRepository.delete(trabajo);
+
+        return "redirect:/trabajos/listar";
+    }
 }
