@@ -2,70 +2,182 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Editar Trabajo</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="icon" type="image/x-icon" href="/images/IconoNavegador.ico">
+    <style>
+        .logo {
+            max-width: 150px;
+            display: block;
+            margin: 0 auto;
+            margin-top: -3%;
+            margin-bottom: -3%;
+        }
+
+        body {
+            margin-bottom: 0;
+        }
+
+        footer {
+            margin-top: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ccc;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        .add-row-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .remove-row-button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <h1>Editar Trabajo</h1>
-    <form th:action="@{'/trabajos/editar/' + ${trabajo.id}}" th:object="${trabajo}" method="post">
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" th:field="*{nombre}" required><br>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <img src="/images/LogoOficial.png" alt="LogoMGP" class="logo">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/inicio">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/trabajos/listar">Lista de trabajos</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/trabajos/crear">Registrar de trabajo</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/clientes/crear">Registrar cliente</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/clientes/listar">Lista de clientes</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
-        <label for="descripcion">Descripción:</label>
-        <textarea id="descripcion" th:field="*{descripcion}"></textarea><br>
+    <header>
+        <nav>
+            <div class="usuario">
+                <!-- Nombre del usuario aquí -->
+            </div>
+        </nav>
+    </header>
 
-        <label for="estado">Estado:</label>
-        <select id="estado" th:field="*{estado}">
-            <option value="TERMINADO">Terminado</option>
-            <option value="SIN_INICIAR">Sin Iniciar</option>
-            <option value="INICIADO">Iniciado</option>
-            <option value="ENTREGADO">Entregado</option>
-        </select><br>
+    <main>
+        <section id="login" class="py-5 bg-light">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <h2 class="text-center mb-4">Editar Trabajo</h2>
 
-        <label for="fechaRecibo">Fecha de Recibo:</label>
-        <input type="date" id="fechaRecibo" th:field="*{fechaRecibo}" required><br>
+                        <form th:action="@{'/trabajos/editar/' + ${trabajo.id}}" th:object="${trabajo}" method="post">
+                            <label for="nombre">Nombre:</label>
+                            <input class="form-control" type="text" id="nombre" th:field="*{nombre}" required><br>
 
-        <label for="fechaEntrega">Fecha de Entrega:</label>
-        <input type="date" id="fechaEntrega" th:field="*{fechaEntrega}"><br>
+                            <label for="descripcion">Descripción:</label>
+                            <textarea class="form-control" id="descripcion" th:field="*{descripcion}"></textarea><br>
 
-        <label for="cliente">Cliente:</label>
-        <select id="cliente" th:field="*{cliente.id}">
-            <option th:each="cliente : ${clientes}" th:value="${cliente.id}" th:text="${cliente.nombre}"></option>
-        </select><br>
+                            <label for="estado">Estado:</label>
+                            <select class="form-control" id="estado" th:field="*{estado}">
+                                <option value="TERMINADO">Terminado</option>
+                                <option value="SIN_INICIAR">Sin Iniciar</option>
+                                <option value="INICIADO">Iniciado</option>
+                                <option value="ENTREGADO">Entregado</option>
+                            </select><br>
 
-        <label for="tipoEquipo">Tipo de Equipo:</label>
-        <select id="tipoEquipo" th:field="*{tipoEquipo}">
-            <option value="NOTEBOOK">Notebook</option>
-            <option value="PC_DE_ESCRITORIO">PC de escritorio</option>
-            <option value="CONSOLA">Consola</option>
-            <option value="JOYSTICK">Joystick</option>
-            <option value="ALTAVOZ_BLUETOOTH">Altavoz Bluetooth</option>
-            <option value="ALTAVOZ">Altavoz</option>
-        </select><br>
+                            <label for="fechaRecibo">Fecha de Recibo:</label>
+                            <input class="form-control" type="date" id="fechaRecibo" th:field="*{fechaRecibo}" required><br>
 
-        <label for="modeloEquipo">Modelo de Equipo:</label>
-        <input type="text" id="modeloEquipo" th:field="*{modeloEquipo}"><br>
+                            <label for="fechaEntrega">Fecha de Entrega:</label>
+                            <input class="form-control" type="date" id="fechaEntrega" th:field="*{fechaEntrega}"><br>
 
-        <label for="prioridad">Prioridad:</label>
-        <select id="prioridad" th:field="*{prioridad}">
-            <option value="BAJA">Baja</option>
-            <option value="MEDIA">Media</option>
-            <option value="ALTA">Alta</option>
-        </select><br>
+                            <label for="cliente">Cliente:</label>
+                            <select class="form-control" id="cliente" th:field="*{cliente.id}">
+                                <option th:each="cliente : ${clientes}" th:value="${cliente.id}"
+                                    th:text="${cliente.nombre}"></option>
+                            </select><br>
 
-        <label for="asignadoA">Asignado a:</label>
-        <select id="asignadoA" th:field="*{asignadoA.id}">
-            <option value="" disabled selected>Seleccione un usuario</option>
-            <option th:each="usuarioAdmin : ${usuariosAdmin}" th:value="${usuarioAdmin.id}" th:text="${usuarioAdmin.nombre}"></option>
-        </select>        
+                            <label for="tipoEquipo">Tipo de Equipo:</label>
+                            <select class="form-control" id="tipoEquipo" th:field="*{tipoEquipo}">
+                                <option value="NOTEBOOK">Notebook</option>
+                                <option value="PC_DE_ESCRITORIO">PC de escritorio</option>
+                                <option value="CONSOLA">Consola</option>
+                                <option value="JOYSTICK">Joystick</option>
+                                <option value="ALTAVOZ_BLUETOOTH">Altavoz Bluetooth</option>
+                                <option value="ALTAVOZ">Altavoz</option>
+                            </select><br>
 
-        <label for="comentarios">Comentarios:</label>
-        <textarea id="comentarios" th:field="*{comentarios}"></textarea><br>
+                            <label for="modeloEquipo">Modelo de Equipo:</label>
+                            <input class="form-control" type="text" id="modeloEquipo" th:field="*{modeloEquipo}"><br>
 
-        <label for="ganancia">Ganancia:</label>
-        <input type="text" id="ganancia" th:field="*{ganancia}"><br>
+                            <label for="prioridad">Prioridad:</label>
+                            <select class="form-control"  id="prioridad" th:field="*{prioridad}">
+                                <option value="BAJA">Baja</option>
+                                <option value="MEDIA">Media</option>
+                                <option value="ALTA">Alta</option>
+                            </select><br>
 
-        <!-- Otros campos y botón de envío -->
-        <button type="submit">Guardar Cambios</button>
-    </form>
+                            <label for="asignadoA">Asignado a:</label>
+                            <select class="form-control"  id="asignadoA" th:field="*{asignadoA.id}">
+                                <option value="" disabled selected>Seleccione un usuario</option>
+                                <option th:each="usuarioAdmin : ${usuariosAdmin}" th:value="${usuarioAdmin.id}"
+                                    th:text="${usuarioAdmin.nombre}"></option>
+                            </select><br>
+
+                            <label for="comentarios">Comentarios:</label>
+                            <textarea class="form-control"  id="comentarios" th:field="*{comentarios}"></textarea><br>
+
+                            <label for="ganancia">Ganancia:</label>
+                            <input class="form-control" type="text" id="ganancia" th:field="*{ganancia}"><br>
+
+                            <button class="btn btn-primary ml-3" type="submit">Guardar Cambios</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-1 mt-4 bg-dark text-white text-center fixed-bottom">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>&copy; 2023 MGP Soluciones Informáticas. Todos los derechos reservados.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
+    
